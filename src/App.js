@@ -7,11 +7,37 @@ import ProductList from './components/ProductList';
 
 export default class App extends Component {
 
-  state={currentCategory:""}
+  state={currentCategory:"", products:[], cart:[]};
 
-  changeCategory=(category)=>{
-    this.setState({currentCategory:category.categoryName})
+  componentDidMount(){
+    this.getProducts();
+  }
+
+  changeCategory=category=>{
+    this.setState({currentCategory:category.categoryName});
+    this.getProducts(category.id);
   };
+
+  getProducts=categoryId=>{
+    let url="http://localhost:3000/products";
+    if(categoryId){
+      url += "?categoryId" + categoryId;
+    }
+    fetch(url)
+    .then(responsive=>responsive.json())
+    .then(data=>this.setState({products:data}));
+  }
+
+  addToCart=(product)=>{
+    let newCart=this.state.cart;
+    var addedItem=newCart.find(c=>c.product.id===product.id);
+    if(addedItem){
+      addedItem.quantity+=1;
+    }else{
+      newCart.push({product:product, quantity:1});
+    }
+    this.setState({cart:newCart});
+  }
 
   render() {
     let productInfo={title:"ProductList"}
@@ -37,14 +63,24 @@ export default class App extends Component {
   
         <div className='container'>
           <div className='row'>
-              <Navi/>
+              <Navi cart={this.state.cart}/>
           </div>
+          <br />
           <div className='row'>
             <div className='col-3'>
-              <CategoryList currentCategory={this.state.currentCategory} changeCategory={this.changeCategory} info={categoryInfo}/>
+              <CategoryList 
+              currentCategory={this.state.currentCategory} 
+              changeCategory={this.changeCategory} 
+              info={categoryInfo}
+              />
             </div>
             <div className='col-9'>
-              <ProductList currentCategory={this.state.currentCategory} info={productInfo}/>
+              <ProductList 
+                products={this.state.products}
+                addToCart={this.addToCart}
+                currentCategory={this.state.currentCategory} 
+                info={productInfo}
+              />
             </div>
           </div>
         </div>
