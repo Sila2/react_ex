@@ -19,10 +19,7 @@ export default class Navi extends Component {
                 <li className="nav-item">
                   <a className="nav-link" href="#">Link</a>
                 </li>
-                <CartSummary cart={this.props.cart}/>
-                <li className="nav-item">
-                  <a className="nav-link disabled">Disabled</a>
-                </li>
+                <CartSummary removeFromCart={this.props.removeFromCart} cart={this.props.cart}/>
               </ul>
               <form className="d-flex" role="search">
                 <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
