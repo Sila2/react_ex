@@ -4,6 +4,9 @@ import React, { Component } from 'react'
 import CategoryList from './components/CategoryList';
 import Navi from './components/Navi';
 import ProductList from './components/ProductList';
+import {Route, Switch} from 'react-router-dom';
+import NotFound from './components/NotFound';
+import CartList from './components/CartList';
 
 export default class App extends Component {
 
@@ -80,16 +83,22 @@ export default class App extends Component {
               />
             </div>
             <div className='col-9'>
-              <ProductList 
-                products={this.state.products}
-                addToCart={this.addToCart}
-                currentCategory={this.state.currentCategory} 
-                info={productInfo}
-              />
+              <Switch>
+                <Route exact path='/' render={props=>(
+                  <ProductList 
+                  products={this.state.products}
+                  addToCart={this.addToCart}
+                  currentCategory={this.state.currentCategory} 
+                  info={productInfo}
+                  />
+                )}
+                />
+                <Route component={NotFound} />
+                <Route exact path='/cart' component={CartList} />
+              </Switch>             
             </div>
           </div>
-        </div>
-        
+        </div>       
       </div>
     )
   }
