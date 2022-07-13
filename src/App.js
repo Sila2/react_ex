@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import CategoryList from './components/CategoryList';
 import Navi from './components/Navi';
 import ProductList from './components/ProductList';
-import {Route, Switch} from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import NotFound from './components/NotFound';
 import CartList from './components/CartList';
 
@@ -84,17 +84,27 @@ export default class App extends Component {
             </div>
             <div className='col-9'>
               <Switch>
-                <Route exact path='/' render={props=>(
+                <Route exact 
+                path='/' 
+                render={props=>(
                   <ProductList 
+                  {...props}
                   products={this.state.products}
                   addToCart={this.addToCart}
                   currentCategory={this.state.currentCategory} 
                   info={productInfo}
                   />
-                )}
-                />
+                )}/>
+                
+                <Route exact path='/cart' 
+                 render={props=>(
+                  <CartList 
+                  {...props}
+                  cart={this.state.cart}
+                  removeFromCart={this.removeFromCart}
+                  />
+                )}/>
                 <Route component={NotFound} />
-                <Route exact path='/cart' component={CartList} />
               </Switch>             
             </div>
           </div>

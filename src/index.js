@@ -11,10 +11,16 @@ root.render(
   <BrowserRouter>
     <App />
   </BrowserRouter>
+  
 );
 
 
+// eslint-disable-next-line no-lone-blocks
 {/* <React.StrictMode>
     <App />
   </React.StrictMode> */}
 
+// eslint-disable-next-line no-lone-blocks
+{/* <BrowserRouter>
+    <App />
+  </BrowserRouter> */}

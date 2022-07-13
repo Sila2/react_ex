@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 
 export default class CartSummary extends Component {
   renderSummary(){
@@ -12,7 +13,8 @@ export default class CartSummary extends Component {
                     </a></li>
                 ))}
                 <li><hr className="dropdown-divider"/></li>
-                <li><a className="dropdown-item" href="#">Something else here</a></li>
+                <li><a className="dropdown-item" href="#">
+                    <Link to='cart'>Go to cart</Link></a></li>
             </ul>
         </li>
       </div>
